@@ -56,21 +56,23 @@ public class MainActivity extends FragmentActivity
     		int _id = getIntent().getExtras().getInt("id");
         	Alert(text, _id);
         }
-        if(savedInstanceState != null){
-        	intentIdArray = savedInstanceState.getIntegerArrayList(INTENT_ID_ARRAY);
-        }
-        SharedPreferences prefs = getSharedPreferences(INTENT_ID_ARRAY, Context.MODE_PRIVATE);
-        Integer size = prefs.getInt(INTENT_ID_ARRAY+"_SIZE", 0);
-        for (Integer i = 0; i < size; i++){
-        	intentIdArray.add(prefs.getInt(INTENT_ID_ARRAY+i, 0));
-        }
-        setContentView(R.layout.activity_main);
-        init();
-        setAdapter();
-        setListener();
-        if (savedInstanceState == null) {
-			selectItem(0);
-		}
+        else{
+        	if(savedInstanceState != null){
+            	intentIdArray = savedInstanceState.getIntegerArrayList(INTENT_ID_ARRAY);
+            }
+            SharedPreferences prefs = getSharedPreferences(INTENT_ID_ARRAY, Context.MODE_PRIVATE);
+            Integer size = prefs.getInt(INTENT_ID_ARRAY+"_SIZE", 0);
+            for (Integer i = 0; i < size; i++){
+            	intentIdArray.add(prefs.getInt(INTENT_ID_ARRAY+i, 0));
+            }
+            setContentView(R.layout.activity_main);
+            init();
+            setAdapter();
+            setListener();
+            if (savedInstanceState == null) {
+    			selectItem(0);
+    		}
+        }   
     }
 
 	private void init() {
@@ -204,7 +206,7 @@ public class MainActivity extends FragmentActivity
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dialog.cancel();
-					finish();
+					MainActivity.this.finish();
 				}
 			});
 		}
